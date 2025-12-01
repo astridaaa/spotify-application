@@ -1,7 +1,7 @@
 package util;
 
 public enum Keys {
-    CLIENT_ID("e4415f5ec483493d80d40b7b17fffa72"), CLIENT_SECRET("024972559b89437a96bcc284449ebf30");
+    CLIENT_ID("meow"), CLIENT_SECRET("meow");
 
     public final String label;
 
