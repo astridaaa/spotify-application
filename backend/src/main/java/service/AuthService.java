@@ -10,7 +10,6 @@ import java.awt.Desktop;
 
 import org.apache.hc.core5.http.ParseException;
 import com.sun.net.httpserver.HttpServer;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.SpotifyHttpManager;
