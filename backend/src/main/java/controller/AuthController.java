@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,10 +20,11 @@ import se.michaelthelin.spotify.requests.authorization.authorization_code.Author
 import util.Keys;
 
 @Controller
-@RequestMapping("api")
+@CrossOrigin(origins = "http://127.0.0.1:5501")
+@RequestMapping("/api")
 public class AuthController {
     private static final URI redirectUri = SpotifyHttpManager.makeUri("http://127.0.0.1:8080/api/get-user-code");
-    private String code = "";
+    private String code;
 
     private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
             .setClientId(Keys.CLIENT_ID.getKey())
@@ -30,7 +32,7 @@ public class AuthController {
             .setRedirectUri(redirectUri)
             .build();
 
-    @GetMapping("login")
+    @GetMapping("/login")
     @ResponseBody
     public String spotifyLogin() {
         AuthorizationCodeUriRequest authorizationCodeUriRequest = spotifyApi.authorizationCodeUri()
@@ -41,7 +43,7 @@ public class AuthController {
         return uri.toString();
     }
 
-    @GetMapping("get-user-code")
+    @GetMapping("/get-user-code")
     public String getSpotifyUserCode(@RequestParam("code") String userCode, HttpServletResponse response)
             throws IOException {
         code = userCode;
@@ -59,7 +61,7 @@ public class AuthController {
 
             System.out.println("Error: " + e.getMessage());
         }
-        response.sendRedirect("http://localhost:5501/index.html");
+        response.sendRedirect("http://127.0.0.1:5501");
         return spotifyApi.getAccessToken();
     }
 }
