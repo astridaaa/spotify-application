@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Cosmic Background Colors */
+    --app-bg: #060016;
+    --cosmic-base: #000000;
+
+    /* Text Colors */
+    --text-primary: #ffffff;
+    --text-secondary: #b7c0d9;
+    --text-on-primary: #111111;
+
+    /* Accent Colors */
+    --accent-primary: #00eeff;
+    --accent-secondary: #7d5cff;
+
+    /* Card Colors */
+    --card-border: #223056;
+    --card-bg-start: #111a33;
+    --card-bg-end: #0e1530;
+
+    /* Input Colors */
+    --input-bg: #0b132b;
+    --input-border: #20305a;
+
+    /* Divider & Separator */
+    --divider: #1c2233;
+
+    /* Status Colors */
+    --status-success: #2ed47a;
+    --status-error: #ff5c73;
+    --status-info: #43e8ff;
+
+    /* Progress Bar */
+    --progress-bg: #1c2233;
+
+    /* Chip Colors */
+    --chip-default-bg: rgba(28, 34, 51, 0.1);
+    --chip-default-border: #223056;
+    --chip-selected-bg: rgba(0, 238, 255, 0.12);
+    --chip-selected-border: #00eeff;
+
+    /* Toast */
+    --toast-bg: #0e1530;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-[var(--app-bg)] text-[var(--text-primary)];
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: 2rem;
+    line-height: 1.3;
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+/* Cosmic Background Animations */
+@keyframes bgShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes starsDrift1 {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-10px, 10px);
+  }
+}
+
+@keyframes starsDrift2 {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-15px, 15px);
+  }
+}
+
+@keyframes starsDrift3 {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-20px, 20px);
+  }
+}
+
+@keyframes starsTwinkle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes meteor {
+  0% {
+    transform: translate(0, 0) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-300px, 300px) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* Button hover effects */
+@keyframes buttonGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(125, 92, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(125, 92, 255, 0.5);
+  }
+}
