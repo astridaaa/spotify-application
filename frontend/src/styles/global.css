@@ -2,84 +2,107 @@
 
 @layer base {
   :root {
-    /* Cosmic Background Colors */
-    --app-bg: #060016;
-    --cosmic-base: #000000;
-
-    /* Text Colors */
+    /* Išsaugome senus kintamuosius, jei jų prireiktų komponentams, 
+       bet foną valdysime per body pseudo-elementus */
     --text-primary: #ffffff;
-    --text-secondary: #b7c0d9;
-    --text-on-primary: #111111;
-
-    /* Accent Colors */
+    --text-secondary: #e0e0e0; /* Šviesesnis nei buvo */
     --accent-primary: #00eeff;
     --accent-secondary: #7d5cff;
 
-    /* Card Colors */
-    --card-border: #223056;
-    --card-bg-start: #111a33;
-    --card-bg-end: #0e1530;
-
-    /* Input Colors */
-    --input-bg: #0b132b;
-    --input-border: #20305a;
-
-    /* Divider & Separator */
-    --divider: #1c2233;
-
-    /* Status Colors */
-    --status-success: #2ed47a;
-    --status-error: #ff5c73;
-    --status-info: #43e8ff;
-
-    /* Progress Bar */
-    --progress-bg: #1c2233;
-
-    /* Chip Colors */
-    --chip-default-bg: rgba(28, 34, 51, 0.1);
-    --chip-default-border: #223056;
-    --chip-selected-bg: rgba(0, 238, 255, 0.12);
-    --chip-selected-border: #00eeff;
-
-    /* Toast */
-    --toast-bg: #0e1530;
+    /* Atnaujintos kortelių spalvos, kad matytųsi ant tamsaus fono */
+    --card-bg-start: rgba(17, 26, 51, 0.7);
+    --card-bg-end: rgba(14, 21, 48, 0.7);
+    --card-border: rgba(34, 48, 86, 0.5);
   }
 
   * {
-    @apply border-border;
+    @apply border-gray-700;
   }
 
   body {
-    @apply bg-[var(--app-bg)] text-[var(--text-primary)];
+    /* 2. Punktas: Visas tekstas baltas pagal nutylėjimą */
+    @apply text-white;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-      "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+      sans-serif;
+    min-height: 100vh;
+    background-color: #000; /* Fallback spalva */
+    overflow-x: hidden; /* Kad žvaigždės neišplėstų ekrano */
   }
 
+  /* 1. Punktas: Cosmify užrašas (H1) */
   h1 {
-    font-size: 2.5rem;
-    line-height: 1.2;
-    font-weight: 700;
+    font-size: 4rem; /* Dar labiau padidinta */
+    line-height: 1.1;
+    font-weight: 900; /* Extra Bold */
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(0, 238, 255, 0.6); /* Švytėjimas */
+    margin-bottom: 1.5rem;
   }
 
-  h2 {
-    font-size: 2rem;
+  /* 3. Punktas: Visi Top Tracks, Top Artists ir kiti pavadinimai */
+  h2,
+  h3,
+  .section-title {
+    font-size: 2.5rem; /* Padidinta */
     line-height: 1.3;
-    font-weight: 600;
+    font-weight: 800; /* Paryškinta */
+    color: #ffffff !important; /* Priverstinai balta */
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
 
-  h3 {
-    font-size: 1.5rem;
-    line-height: 1.4;
-    font-weight: 600;
+  /* Paprastas tekstas */
+  p,
+  span,
+  label,
+  div {
+    color: #ffffff;
   }
 
-  p {
-    font-size: 1rem;
-    line-height: 1.6;
+  /* Išimtis: View All tekstas (jei naudojama 'text-muted' klasė, paliekam pilkšvą, 
+     jei ne - reiks pridėti klasę pačiam elementui) */
+  .text-muted {
+    color: #b7c0d9 !important;
   }
 }
 
-/* Cosmic Background Animations */
+/* --- 4. Punktas: Tavo pateiktas FONAS --- */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: -50vh -50vw;
+  z-index: -3;
+  pointer-events: none;
+  background: linear-gradient(
+    120deg,
+    #000,
+    #2d149f,
+    #020258,
+    #1a0136,
+    #3a016c,
+    #89157e,
+    #2e0490
+  );
+  background-size: 300% 300%;
+  animation: bgShift 26s infinite alternate;
+  transform: translateZ(0);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0.03;
+  background: repeating-conic-gradient(
+    rgba(255, 255, 255, 0.7) 0 0.00025turn,
+    transparent 0 0.0005turn
+  );
+  mix-blend-mode: soft-light;
+}
+
 @keyframes bgShift {
   0% {
     background-position: 0% 50%;
@@ -89,61 +112,132 @@
   }
 }
 
-@keyframes starsDrift1 {
+/* Žvaigždės ir meteorai (reikia HTML elementų) */
+.stars,
+.meteors {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.starfield {
+  position: absolute;
+  inset: -200%;
+  background-repeat: repeat;
+  opacity: 0.9;
+  animation: stars-drift 140s linear infinite;
+}
+
+@keyframes stars-drift {
   from {
-    transform: translate(0, 0);
+    background-position: 0 0;
   }
   to {
-    transform: translate(-10px, 10px);
+    background-position: 800px 600px;
   }
 }
 
-@keyframes starsDrift2 {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(-15px, 15px);
-  }
+.starfield.s {
+  background-image: radial-gradient(1px 1px at 13px 17px, #fff 99%, transparent),
+    radial-gradient(1px 1px at 77px 53px, #fff 99%, transparent);
+  background-size: 180px 180px;
 }
 
-@keyframes starsDrift3 {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(-20px, 20px);
-  }
+.starfield.m {
+  background-image: radial-gradient(
+    1.5px 1.5px at 40px 60px,
+    #fff 99%,
+    transparent
+  );
+  background-size: 320px 300px;
 }
 
-@keyframes starsTwinkle {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
+.starfield.l {
+  background-image: radial-gradient(
+    2px 2px at 120px 90px,
+    #fff 99%,
+    transparent
+  );
+  background-size: 520px 480px;
+}
+
+.meteors span {
+  position: absolute;
+  top: -150px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), transparent);
+  opacity: 0.6;
+  transform: rotate(45deg);
+  animation: meteor 12s linear infinite;
+}
+
+/* Meteorų vėlavimai */
+.meteors span:nth-child(1) {
+  left: 20%;
+  width: 2px;
+  height: 60px;
+  animation-delay: 2s;
+}
+.meteors span:nth-child(2) {
+  left: 40%;
+  width: 3px;
+  height: 100px;
+  animation-delay: 6s;
+}
+.meteors span:nth-child(3) {
+  left: 60%;
+  width: 4px;
+  height: 120px;
+  animation-delay: 10s;
+}
+.meteors span:nth-child(4) {
+  left: 80%;
+  width: 2px;
+  height: 70px;
+  animation-delay: 14s;
+}
+.meteors span:nth-child(5) {
+  left: 90%;
+  width: 5px;
+  height: 150px;
+  animation-delay: 4s;
 }
 
 @keyframes meteor {
   0% {
-    transform: translate(0, 0) rotate(45deg);
+    transform: translateY(-100px) translateX(0) rotate(45deg);
+    opacity: 0;
+  }
+  10% {
     opacity: 1;
   }
   100% {
-    transform: translate(-300px, 300px) rotate(45deg);
+    transform: translateY(1000px) translateX(-1000px) rotate(45deg);
     opacity: 0;
   }
 }
 
-/* Button hover effects */
-@keyframes buttonGlow {
-  0%,
-  100% {
-    box-shadow: 0 0 20px rgba(125, 92, 255, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(125, 92, 255, 0.5);
-  }
+/* Stilius specialiai "Connect with Spotify" mygtukui */
+.spotify-btn {
+  background-color: #1db954 !important;
+  color: #000000 !important; /* JUODAS tekstas */
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+}
+.spotify-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(29, 185, 84, 0.6);
+}
+
+/* Stilius kortelėms, kad tekstas jose būtų gerai įskaitomas */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
 }

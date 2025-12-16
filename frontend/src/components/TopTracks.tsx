@@ -49,7 +49,6 @@ export function TopTracks({
   return (
     <div className="relative min-h-screen p-4 md:p-8">
       <div className="max-w-5xl mx-auto">
-        {/* Header */}
         <div className="mb-8">
           <button
             onClick={onBack}
@@ -59,7 +58,10 @@ export function TopTracks({
             <span>Back</span>
           </button>
 
-          <h1 className="mb-6">Top Tracks</h1>
+          {/* PATAISYTA: font-extrabold antraštei */}
+          <h1 className="mb-6 text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+            Top Tracks
+          </h1>
 
           <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
             <PeriodChips selected={period} onChange={onPeriodChange} />
@@ -74,22 +76,23 @@ export function TopTracks({
           </div>
         </div>
 
-        {/* Tracks List */}
         <CosmicCard>
           <div className="space-y-4">
             {mockTracks.map((track, index) => (
               <div
                 key={track.id}
-                className="flex gap-4 p-4 rounded-lg hover:bg-white/5 transition-colors border-b border-[#1C2233]/16 last:border-0"
+                // PATAISYTA: rounded-2xl
+                className="flex gap-4 p-4 rounded-2xl hover:bg-white/5 transition-colors border-b border-[#1C2233]/50 last:border-0 items-center"
               >
                 <div className="flex-shrink-0 w-16 h-16 relative">
                   <img
                     src={track.coverUrl}
                     alt={track.name}
-                    className="w-full h-full object-cover rounded"
+                    className="w-full h-full object-cover rounded-xl"
                   />
+                  {/* PATAISYTA: font-medium skaičiams */}
                   <div
-                    className={`absolute -top-2 -left-2 w-7 h-7 rounded-full flex items-center justify-center ${
+                    className={`absolute -top-2 -left-2 w-7 h-7 rounded-full flex items-center justify-center font-medium text-white shadow-lg border border-[#0B1221] ${
                       index < 3
                         ? "bg-gradient-to-br from-[#00EEFF] to-[#7D5CFF]"
                         : "bg-[#223056]"
@@ -104,7 +107,9 @@ export function TopTracks({
                     onClick={() => onViewTrack(track)}
                     className="hover:text-[#00EEFF] transition-colors text-left"
                   >
-                    <div className="truncate">{track.name}</div>
+                    <div className="truncate text-lg font-bold text-white">
+                      {track.name}
+                    </div>
                   </button>
                   <div className="text-sm text-[#B7C0D9] truncate">
                     {track.artist}
@@ -124,7 +129,7 @@ export function TopTracks({
 
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <button className="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                      <button className="p-2 hover:bg-white/10 rounded-lg transition-colors text-white">
                         <MoreVertical className="w-5 h-5" />
                       </button>
                     </DropdownMenuTrigger>

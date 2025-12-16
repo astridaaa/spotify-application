@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from "react";
+import type { ButtonHTMLAttributes } from "react";
 
 interface CosmicButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary";
@@ -13,8 +13,9 @@ export function CosmicButton({
   disabled,
   ...props
 }: CosmicButtonProps) {
+  // Pridėta 'font-sans font-medium', kad šriftas būtų tvarkingas visur
   const baseStyles =
-    "rounded-[10px] transition-all duration-200 active:scale-[0.98]";
+    "rounded-[10px] transition-all duration-200 active:scale-[0.98] font-sans font-medium";
 
   const variantStyles = {
     primary: disabled

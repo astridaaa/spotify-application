@@ -1,14 +1,9 @@
 import { useState, useRef } from "react";
-import { ArrowLeft, Copy, Download, Link2, Sparkles } from "lucide-react";
+import { ArrowLeft, Copy, Download, Link2 } from "lucide-react";
 import type { Period } from "../App";
 import { CosmicCard } from "./CosmicCard";
 import { CosmicButton } from "./CosmicButton";
-import {
-  mockTracks,
-  mockArtists,
-  mockGenres,
-  aiFirstImpression,
-} from "./mockData";
+import { mockTracks, mockArtists, mockGenres } from "./mockData";
 import { toast } from "sonner";
 
 interface ShareCardProps {
@@ -52,22 +47,23 @@ export function ShareCard({
   };
 
   return (
-    <div className="relative min-h-screen p-4 md:p-8">
+    // 3 PUNKTAS: Visur font-sans
+    <div className="relative min-h-screen p-4 md:p-8 font-sans">
       <div className="max-w-5xl mx-auto">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-[#B7C0D9] hover:text-white transition-colors mb-6"
+          className="flex items-center gap-2 text-[#B7C0D9] hover:text-white transition-colors mb-6 font-medium"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back</span>
         </button>
 
-        <h1 className="mb-8">Share Your Stats</h1>
+        <h1 className="mb-8 text-3xl font-bold text-white">Share Your Stats</h1>
 
         <div className="flex flex-col md:grid md:grid-cols-[400px_1fr] gap-8 items-start">
-          {/* Preview Card - Story Format (9:16) */}
+          {/* Preview Card */}
           <div className="w-full">
-            <p className="text-sm text-[#B7C0D9] mb-4">
+            <p className="text-sm text-[#B7C0D9] mb-4 font-medium">
               Preview • 1080×1920 (Instagram Story)
             </p>
             <div
@@ -92,16 +88,16 @@ export function ShareCard({
                 }}
               />
 
-              <div className="relative z-10 h-full flex flex-col p-8">
+              <div className="relative z-10 h-full flex flex-col p-8 font-sans">
                 {/* Header */}
                 <div className="text-center mb-6">
-                  <h2 className="text-3xl mb-2">
+                  <h2 className="text-3xl mb-2 font-bold text-white tracking-tight">
                     {variant === "tracks" && "My Top Tracks"}
                     {variant === "artists" && "My Top Artists"}
                     {variant === "genres" && "My Top Genres"}
                     {variant === "overall" && "My Wrapped"}
                   </h2>
-                  <p className="text-sm text-[#B7C0D9]">
+                  <p className="text-sm text-[#B7C0D9] font-medium">
                     {periodLabels[period]}
                   </p>
                 </div>
@@ -109,7 +105,7 @@ export function ShareCard({
                 {/* Tracks Variant */}
                 {variant === "tracks" && (
                   <div className="flex-1 space-y-3">
-                    {/* #1 Track - Hero */}
+                    {/* #1 Track */}
                     <div className="p-4 rounded-2xl bg-gradient-to-br from-[#00EEFF]/20 to-[#7D5CFF]/20 border-2 border-[#00EEFF]/40">
                       <div className="flex gap-4">
                         <div className="relative flex-shrink-0 w-20 h-20">
@@ -119,7 +115,7 @@ export function ShareCard({
                             className="w-full h-full object-cover rounded-xl"
                           />
                           <div
-                            className="absolute -top-2 -left-2 w-8 h-8 rounded-full flex items-center justify-center text-sm"
+                            className="absolute -top-2 -left-2 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shadow-lg"
                             style={{
                               background:
                                 "linear-gradient(135deg, #00EEFF 0%, #7D5CFF 100%)",
@@ -129,10 +125,10 @@ export function ShareCard({
                           </div>
                         </div>
                         <div className="flex-1 min-w-0 flex flex-col justify-center">
-                          <p className="text-lg truncate mb-1">
+                          <p className="text-lg truncate mb-1 font-bold text-white">
                             {topTracks[0].name}
                           </p>
-                          <p className="text-sm text-[#B7C0D9] truncate">
+                          <p className="text-sm text-[#B7C0D9] truncate font-medium">
                             {topTracks[0].artist}
                           </p>
                         </div>
@@ -157,7 +153,7 @@ export function ShareCard({
                             className="w-full h-full object-cover rounded-lg"
                           />
                           <div
-                            className="absolute -top-2 -left-2 w-6 h-6 rounded-full flex items-center justify-center text-xs"
+                            className="absolute -top-2 -left-2 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold"
                             style={{
                               background:
                                 "linear-gradient(135deg, #00EEFF 0%, #7D5CFF 100%)",
@@ -166,9 +162,11 @@ export function ShareCard({
                             {index + 2}
                           </div>
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="truncate mb-1">{track.name}</p>
-                          <p className="text-sm text-[#B7C0D9] truncate">
+                        <div className="flex-1 min-w-0 flex flex-col justify-center">
+                          <p className="truncate mb-1 font-bold text-white">
+                            {track.name}
+                          </p>
+                          <p className="text-sm text-[#B7C0D9] truncate font-medium">
                             {track.artist}
                           </p>
                         </div>
@@ -180,17 +178,17 @@ export function ShareCard({
                 {/* Artists Variant */}
                 {variant === "artists" && (
                   <div className="flex-1 space-y-3">
-                    {/* #1 Artist - Hero */}
+                    {/* #1 Artist */}
                     <div className="p-4 rounded-2xl bg-gradient-to-br from-[#00EEFF]/20 to-[#7D5CFF]/20 border-2 border-[#00EEFF]/40">
                       <div className="flex gap-4">
                         <div className="relative flex-shrink-0 w-20 h-20">
                           <img
                             src={topArtists[0].imageUrl}
                             alt={topArtists[0].name}
-                            className="w-full h-full object-cover rounded-full"
+                            className="w-full h-full object-cover rounded-full shadow-lg"
                           />
                           <div
-                            className="absolute -top-2 -left-2 w-8 h-8 rounded-full flex items-center justify-center text-sm"
+                            className="absolute -top-2 -left-2 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shadow-lg"
                             style={{
                               background:
                                 "linear-gradient(135deg, #00EEFF 0%, #7D5CFF 100%)",
@@ -200,10 +198,10 @@ export function ShareCard({
                           </div>
                         </div>
                         <div className="flex-1 min-w-0 flex flex-col justify-center">
-                          <p className="text-lg truncate mb-1">
+                          <p className="text-lg truncate mb-1 font-bold text-white">
                             {topArtists[0].name}
                           </p>
-                          <p className="text-sm text-[#B7C0D9] truncate">
+                          <p className="text-sm text-[#B7C0D9] truncate font-medium">
                             {topArtists[0].playcount} plays
                           </p>
                         </div>
@@ -228,7 +226,7 @@ export function ShareCard({
                             className="w-full h-full object-cover rounded-full"
                           />
                           <div
-                            className="absolute -top-2 -left-2 w-6 h-6 rounded-full flex items-center justify-center text-xs"
+                            className="absolute -top-2 -left-2 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold"
                             style={{
                               background:
                                 "linear-gradient(135deg, #00EEFF 0%, #7D5CFF 100%)",
@@ -237,9 +235,11 @@ export function ShareCard({
                             {index + 2}
                           </div>
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="truncate mb-1">{artist.name}</p>
-                          <p className="text-sm text-[#B7C0D9] truncate">
+                        <div className="flex-1 min-w-0 flex flex-col justify-center">
+                          <p className="truncate mb-1 font-bold text-white">
+                            {artist.name}
+                          </p>
+                          <p className="text-sm text-[#B7C0D9] truncate font-medium">
                             {artist.playcount} plays
                           </p>
                         </div>
@@ -263,7 +263,7 @@ export function ShareCard({
                       >
                         <div className="flex items-center gap-3 mb-3">
                           <div
-                            className="w-8 h-8 rounded-full flex items-center justify-center"
+                            className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm"
                             style={{
                               background:
                                 "linear-gradient(135deg, #00EEFF 0%, #7D5CFF 100%)",
@@ -271,7 +271,9 @@ export function ShareCard({
                           >
                             {index + 1}
                           </div>
-                          <p className="flex-1">{genre.name}</p>
+                          <p className="flex-1 font-bold text-white">
+                            {genre.name}
+                          </p>
                         </div>
                         <div className="flex items-center gap-3">
                           <div className="flex-1 h-2 bg-[#1C2233] rounded-full overflow-hidden">
@@ -284,26 +286,28 @@ export function ShareCard({
                               }}
                             />
                           </div>
-                          <span className="text-sm">{genre.percentage}%</span>
+                          <span className="text-sm font-medium">
+                            {genre.percentage}%
+                          </span>
                         </div>
                       </div>
                     ))}
                   </div>
                 )}
 
-                {/* Overall Variant - Spotify Wrapped Style */}
+                {/* Overall Variant (Wrapped) */}
                 {variant === "overall" && (
                   <div className="flex-1 flex justify-center">
                     <div className="w-full max-w-[260px] md:max-w-[280px] flex gap-2 md:gap-3">
                       {/* Left Side - Top 5 Tracks */}
                       <div className="flex-1 space-y-1.5 md:space-y-2">
-                        <p className="text-[10px] text-[#B7C0D9] uppercase tracking-wide mb-1">
+                        <p className="text-[10px] text-[#B7C0D9] uppercase tracking-wide mb-1 font-bold">
                           Tracks
                         </p>
                         {topTracks.map((track, index) => (
                           <div
                             key={track.id}
-                            className={`flex gap-1 md:gap-1.5 p-1 md:p-1.5 rounded-lg ${
+                            className={`flex gap-1 md:gap-1.5 p-1 md:p-1.5 rounded-xl ${
                               index === 0
                                 ? "bg-gradient-to-br from-[#00EEFF]/20 to-[#7D5CFF]/20 border-2 border-[#00EEFF]/40"
                                 : ""
@@ -322,14 +326,14 @@ export function ShareCard({
                               <img
                                 src={track.coverUrl}
                                 alt={track.name}
-                                className="w-full h-full object-cover rounded"
+                                className="w-full h-full object-cover rounded-lg"
                               />
                               <div
                                 className={`absolute -top-1 -left-1 ${
                                   index === 0
                                     ? "w-4 h-4 md:w-5 md:h-5 text-[9px] md:text-[10px]"
                                     : "w-3.5 h-3.5 md:w-4 md:h-4 text-[8px] md:text-[9px]"
-                                } rounded-full flex items-center justify-center`}
+                                } rounded-full flex items-center justify-center font-bold`}
                                 style={{
                                   background:
                                     "linear-gradient(135deg, #00EEFF 0%, #7D5CFF 100%)",
@@ -338,17 +342,22 @@ export function ShareCard({
                                 {index + 1}
                               </div>
                             </div>
-                            <div className="flex-1 min-w-0">
+                            <div className="flex-1 min-w-0 flex flex-col justify-center">
+                              {/* 2 PUNKTAS: index < 3 (0,1,2) yra Bold, kiti Medium */}
                               <p
                                 className={`${
                                   index === 0
                                     ? "text-[11px] md:text-xs"
                                     : "text-[9px] md:text-[10px]"
-                                } truncate leading-tight`}
+                                } truncate leading-tight ${
+                                  index < 3
+                                    ? "font-bold text-white"
+                                    : "font-medium text-white/90"
+                                }`}
                               >
                                 {track.name}
                               </p>
-                              <p className="text-[8px] md:text-[9px] text-[#B7C0D9] truncate leading-tight">
+                              <p className="text-[8px] md:text-[9px] text-[#B7C0D9] truncate leading-tight font-medium">
                                 {track.artist}
                               </p>
                             </div>
@@ -358,13 +367,13 @@ export function ShareCard({
 
                       {/* Right Side - Top 5 Artists */}
                       <div className="flex-1 space-y-1.5 md:space-y-2">
-                        <p className="text-[10px] text-[#B7C0D9] uppercase tracking-wide mb-1">
+                        <p className="text-[10px] text-[#B7C0D9] uppercase tracking-wide mb-1 font-bold">
                           Artists
                         </p>
                         {topArtists.map((artist, index) => (
                           <div
                             key={artist.id}
-                            className={`flex gap-1 md:gap-1.5 p-1 md:p-1.5 rounded-lg ${
+                            className={`flex gap-1 md:gap-1.5 p-1 md:p-1.5 rounded-xl ${
                               index === 0
                                 ? "bg-gradient-to-br from-[#00EEFF]/20 to-[#7D5CFF]/20 border-2 border-[#00EEFF]/40"
                                 : ""
@@ -390,7 +399,7 @@ export function ShareCard({
                                   index === 0
                                     ? "w-4 h-4 md:w-5 md:h-5 text-[9px] md:text-[10px]"
                                     : "w-3.5 h-3.5 md:w-4 md:h-4 text-[8px] md:text-[9px]"
-                                } rounded-full flex items-center justify-center`}
+                                } rounded-full flex items-center justify-center font-bold`}
                                 style={{
                                   background:
                                     "linear-gradient(135deg, #00EEFF 0%, #7D5CFF 100%)",
@@ -399,17 +408,22 @@ export function ShareCard({
                                 {index + 1}
                               </div>
                             </div>
-                            <div className="flex-1 min-w-0">
+                            <div className="flex-1 min-w-0 flex flex-col justify-center">
+                              {/* 2 PUNKTAS: index < 3 (0,1,2) yra Bold, kiti Medium */}
                               <p
                                 className={`${
                                   index === 0
                                     ? "text-[11px] md:text-xs"
                                     : "text-[9px] md:text-[10px]"
-                                } truncate leading-tight`}
+                                } truncate leading-tight ${
+                                  index < 3
+                                    ? "font-bold text-white"
+                                    : "font-medium text-white/90"
+                                }`}
                               >
                                 {artist.name}
                               </p>
-                              <p className="text-[8px] md:text-[9px] text-[#B7C0D9] truncate leading-tight">
+                              <p className="text-[8px] md:text-[9px] text-[#B7C0D9] truncate leading-tight font-medium">
                                 {artist.playcount.toLocaleString()}
                               </p>
                             </div>
@@ -422,7 +436,7 @@ export function ShareCard({
 
                 {/* Branding */}
                 <div className="mt-6 text-center">
-                  <p className="text-sm text-[#B7C0D9]">Cosmify</p>
+                  <p className="text-sm text-[#B7C0D9] font-medium">Cosmify</p>
                 </div>
               </div>
             </div>
@@ -431,11 +445,11 @@ export function ShareCard({
           {/* Controls */}
           <div className="space-y-6 w-full">
             <CosmicCard>
-              <h3 className="mb-4">Card Type</h3>
+              <h3 className="mb-4 font-bold text-white">Card Type</h3>
               <div className="flex flex-wrap gap-2 md:gap-3">
                 <button
                   onClick={() => setVariant("tracks")}
-                  className={`flex-1 min-w-[calc(50%-4px)] md:min-w-0 px-4 py-3 text-sm md:text-base md:px-6 rounded-xl transition-all duration-200 whitespace-nowrap ${
+                  className={`flex-1 min-w-[calc(50%-4px)] md:min-w-0 px-4 py-3 text-sm md:text-base md:px-6 rounded-xl transition-all duration-200 whitespace-nowrap font-medium ${
                     variant === "tracks"
                       ? "bg-gradient-to-br from-[#00EEFF] to-[#7D5CFF] text-white"
                       : "bg-[#1C2233]/30 text-[#B7C0D9] hover:bg-[#1C2233]/50"
@@ -445,7 +459,7 @@ export function ShareCard({
                 </button>
                 <button
                   onClick={() => setVariant("artists")}
-                  className={`flex-1 min-w-[calc(50%-4px)] md:min-w-0 px-4 py-3 text-sm md:text-base md:px-6 rounded-xl transition-all duration-200 whitespace-nowrap ${
+                  className={`flex-1 min-w-[calc(50%-4px)] md:min-w-0 px-4 py-3 text-sm md:text-base md:px-6 rounded-xl transition-all duration-200 whitespace-nowrap font-medium ${
                     variant === "artists"
                       ? "bg-gradient-to-br from-[#00EEFF] to-[#7D5CFF] text-white"
                       : "bg-[#1C2233]/30 text-[#B7C0D9] hover:bg-[#1C2233]/50"
@@ -455,7 +469,7 @@ export function ShareCard({
                 </button>
                 <button
                   onClick={() => setVariant("genres")}
-                  className={`flex-1 min-w-[calc(50%-4px)] md:min-w-0 px-4 py-3 text-sm md:text-base md:px-6 rounded-xl transition-all duration-200 whitespace-nowrap ${
+                  className={`flex-1 min-w-[calc(50%-4px)] md:min-w-0 px-4 py-3 text-sm md:text-base md:px-6 rounded-xl transition-all duration-200 whitespace-nowrap font-medium ${
                     variant === "genres"
                       ? "bg-gradient-to-br from-[#00EEFF] to-[#7D5CFF] text-white"
                       : "bg-[#1C2233]/30 text-[#B7C0D9] hover:bg-[#1C2233]/50"
@@ -465,7 +479,7 @@ export function ShareCard({
                 </button>
                 <button
                   onClick={() => setVariant("overall")}
-                  className={`flex-1 min-w-[calc(50%-4px)] md:min-w-0 px-4 py-3 text-sm md:text-base md:px-6 rounded-xl transition-all duration-200 whitespace-nowrap ${
+                  className={`flex-1 min-w-[calc(50%-4px)] md:min-w-0 px-4 py-3 text-sm md:text-base md:px-6 rounded-xl transition-all duration-200 whitespace-nowrap font-medium ${
                     variant === "overall"
                       ? "bg-gradient-to-br from-[#00EEFF] to-[#7D5CFF] text-white"
                       : "bg-[#1C2233]/30 text-[#B7C0D9] hover:bg-[#1C2233]/50"
@@ -477,7 +491,7 @@ export function ShareCard({
             </CosmicCard>
 
             <CosmicCard>
-              <h3 className="mb-4">Export Options</h3>
+              <h3 className="mb-4 font-bold text-white">Export Options</h3>
               <div className="space-y-3">
                 <CosmicButton onClick={handleDownload} className="w-full">
                   <div className="flex items-center justify-center gap-2">
@@ -499,7 +513,7 @@ export function ShareCard({
             </CosmicCard>
 
             <CosmicCard>
-              <h3 className="mb-3">How to Share</h3>
+              <h3 className="mb-3 font-bold text-white">How to Share</h3>
               <div className="space-y-2 text-sm text-[#B7C0D9]">
                 <p>• Download the card as PNG for Instagram/Twitter</p>
                 <p>• Copy link to share your live stats</p>

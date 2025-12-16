@@ -32,7 +32,6 @@ export function RecentlyPlayed({ onBack, onViewTrack }: RecentlyPlayedProps) {
       } else if (hoursAgo < 48) {
         yesterday.push(track);
       } else if (hoursAgo < 168) {
-        // 7 days
         thisWeek.push(track);
       }
     });
@@ -65,55 +64,57 @@ export function RecentlyPlayed({ onBack, onViewTrack }: RecentlyPlayedProps) {
     if (tracks.length === 0) return null;
 
     return (
-      <div className="mb-8">
-        <h3 className="mb-4 text-[#B7C0D9]">{title}</h3>
-        <CosmicCard>
-          <div className="space-y-3">
-            {tracks.map((track) => (
-              <button
-                key={track.id + track.lastPlayed}
-                onClick={() => onViewTrack(track)}
-                className="w-full flex gap-4 p-3 rounded-lg hover:bg-white/5 transition-colors text-left border-b border-[#1C2233]/16 last:border-0"
-              >
-                <img
-                  src={track.coverUrl}
-                  alt={track.name}
-                  className="w-14 h-14 object-cover rounded flex-shrink-0"
-                />
-                <div className="flex-1 min-w-0">
-                  <div className="truncate">{track.name}</div>
-                  <div className="text-sm text-[#B7C0D9] truncate">
-                    {track.artist}
-                  </div>
-                  {track.lastPlayed && (
-                    <div className="text-xs text-[#B7C0D9] mt-1">
-                      {formatTimeAgo(track.lastPlayed)}
-                    </div>
-                  )}
+      <div className="mb-8 font-sans">
+        <h3 className="mb-4 text-[#B7C0D9] font-medium">{title}</h3>
+        <div className="space-y-3">
+          {tracks.map((track) => (
+            <button
+              key={track.id + track.lastPlayed}
+              onClick={() => onViewTrack(track)}
+              className="w-full flex gap-4 p-4 rounded-2xl bg-[#121826] hover:bg-[#1A2235] transition-colors text-left border border-white/5 group"
+            >
+              <img
+                src={track.coverUrl}
+                alt={track.name}
+                className="w-14 h-14 object-cover rounded-xl flex-shrink-0 shadow-lg"
+              />
+              <div className="flex-1 min-w-0 flex flex-col justify-center">
+                <div className="truncate font-medium text-white group-hover:text-[#38bdf8] transition-colors">
+                  {track.name}
                 </div>
-              </button>
-            ))}
-          </div>
-        </CosmicCard>
+                <div className="text-sm text-[#B7C0D9] truncate font-medium">
+                  {track.artist}
+                </div>
+                {track.lastPlayed && (
+                  <div className="text-xs text-[#B7C0D9]/60 mt-1 font-medium">
+                    {formatTimeAgo(track.lastPlayed)}
+                  </div>
+                )}
+              </div>
+            </button>
+          ))}
+        </div>
       </div>
     );
   };
 
   return (
-    <div className="relative min-h-screen p-4 md:p-8">
+    <div className="relative min-h-screen p-4 md:p-8 font-sans">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <button
             onClick={onBack}
-            className="flex items-center gap-2 text-[#B7C0D9] hover:text-white transition-colors mb-6"
+            className="flex items-center gap-2 text-[#B7C0D9] hover:text-white transition-colors mb-6 font-medium"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back</span>
           </button>
 
           <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
-            <h1>Recently Played</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+              Recently Played
+            </h1>
             <CosmicButton onClick={handleResume}>
               <div className="flex items-center gap-2">
                 <Play className="w-4 h-4" />
@@ -123,7 +124,6 @@ export function RecentlyPlayed({ onBack, onViewTrack }: RecentlyPlayedProps) {
           </div>
         </div>
 
-        {/* Grouped Tracks */}
         {renderTrackGroup(today, "Today")}
         {renderTrackGroup(yesterday, "Yesterday")}
         {renderTrackGroup(thisWeek, "This Week")}
@@ -133,7 +133,9 @@ export function RecentlyPlayed({ onBack, onViewTrack }: RecentlyPlayedProps) {
           thisWeek.length === 0 && (
             <CosmicCard>
               <div className="text-center py-12">
-                <p className="text-[#B7C0D9]">No recently played tracks</p>
+                <p className="text-[#B7C0D9] font-medium">
+                  No recently played tracks
+                </p>
               </div>
             </CosmicCard>
           )}
